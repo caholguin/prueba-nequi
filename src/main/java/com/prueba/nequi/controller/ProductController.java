@@ -1,6 +1,7 @@
 package com.prueba.nequi.controller;
 
 import com.prueba.nequi.dto.request.ProductRequest;
+import com.prueba.nequi.dto.request.ProductStockRequest;
 import com.prueba.nequi.dto.response.ProductResponse;
 import com.prueba.nequi.service.ProductService;
 import jakarta.validation.Valid;
@@ -29,6 +30,12 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> update(@PathVariable Long id, @RequestBody @Valid ProductRequest productRequest ){
         ProductResponse product = productService.update(id,productRequest);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateStock(@PathVariable Long id, @RequestBody @Valid ProductStockRequest request){
+        ProductResponse product = productService.updateStock(id, request);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 

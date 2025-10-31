@@ -10,9 +10,6 @@ public class ProductRequest implements Serializable {
     @NotBlank(message = "El nombre no puede estar vacío")
     private String name;
 
-    @NotNull(message = "El stock es obligatorio")
-    private int stock;
-
     @NotNull(message = "El campo sucursal es obligatorio")
     private Long branchId;
 
@@ -22,14 +19,6 @@ public class ProductRequest implements Serializable {
 
     public void setName(String name){
         this.name = name;
-    }
-
-    public int getStock(){
-        return stock;
-    }
-
-    public void setStock(int stock){
-        this.stock = stock;
     }
 
     public Long getBranchId(){

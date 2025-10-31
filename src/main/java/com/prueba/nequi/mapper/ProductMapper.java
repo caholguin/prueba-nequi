@@ -7,7 +7,6 @@ import com.prueba.nequi.entity.Product;
 
 import java.util.List;
 
-
 public class ProductMapper {
 
     public static ProductResponse toDto(Product product) {
@@ -38,7 +37,6 @@ public class ProductMapper {
 
         Product product = new Product();
         product.setName(productRequest.getName());
-        product.setStock(productRequest.getStock());
         product.setBranch(branch);
         return product;
     }
@@ -48,7 +46,6 @@ public class ProductMapper {
         if(product == null || productRequest == null) return;
 
         product.setName(productRequest.getName());
-        product.setStock(productRequest.getStock());
         product.setBranch(branch);
     }
 }
