@@ -4,9 +4,7 @@ import com.prueba.nequi.dto.request.FranchiseRequest;
 import com.prueba.nequi.dto.response.BranchResponse;
 import com.prueba.nequi.dto.response.FranchiseResponse;
 import com.prueba.nequi.entity.Franchise;
-import org.springframework.stereotype.Component;
 
-@Component
 public class FranchiseMapper {
 
     public static FranchiseResponse toDto(Franchise franchise) {

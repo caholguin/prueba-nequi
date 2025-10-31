@@ -26,17 +26,13 @@ public class FranchiseServiceImpl implements FranchiseService {
 
     @Override
     public FranchiseResponse update(Long id, FranchiseRequest franchiseRequest){
-        Franchise franchise = this.findByIdEntity(id);
+        Franchise franchise = this.findById(id);
         FranchiseMapper.updateEntity(franchise,franchiseRequest);
         return FranchiseMapper.toDto(franchiseRepository.save(franchise));
     }
 
     @Override
-    public FranchiseResponse findById(Long id){
-        return FranchiseMapper.toDto(this.findByIdEntity(id));
-    }
-
-    private Franchise findByIdEntity(Long id){
+    public Franchise findById(Long id){
         return franchiseRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Franquicia con id "+ id + " no encontrada"));
     }
 }

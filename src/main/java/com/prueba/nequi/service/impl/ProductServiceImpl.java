@@ -1,9 +1,8 @@
 package com.prueba.nequi.service.impl;
 
 import com.prueba.nequi.dto.request.ProductRequest;
-import com.prueba.nequi.dto.response.BranchResponse;
-import com.prueba.nequi.dto.response.FranchiseResponse;
 import com.prueba.nequi.dto.response.ProductResponse;
+import com.prueba.nequi.entity.Branch;
 import com.prueba.nequi.entity.Product;
 import com.prueba.nequi.exception.ObjectNotFoundException;
 import com.prueba.nequi.mapper.ProductMapper;
@@ -29,18 +28,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse create(ProductRequest productRequest){
-        BranchResponse branch = branchService.findById(productRequest.getBranchId());
-        Product product = ProductMapper.toEntity(productRequest);
-        return ProductMapper.toDto(productRepository.save(product), branch);
+        Branch branch = branchService.findById(productRequest.getBranchId());
+        Product product = ProductMapper.toEntity(productRequest,branch);
+        return ProductMapper.toDto(productRepository.save(product));
     }
 
     @Override
     @Transactional
     public ProductResponse update(Long id, ProductRequest productRequest){
         Product product = this.findByIdEntity(id);
-        BranchResponse branch = branchService.findById(productRequest.getBranchId());
-        ProductMapper.updateEntity(product,productRequest);
-        return ProductMapper.toDto(productRepository.save(product),branch);
+        Branch branch = branchService.findById(productRequest.getBranchId());
+        ProductMapper.updateEntity(product,productRequest,branch);
+        return ProductMapper.toDto(productRepository.save(product));
     }
 
     @Override

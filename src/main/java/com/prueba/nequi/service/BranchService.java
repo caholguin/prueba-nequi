@@ -2,6 +2,7 @@ package com.prueba.nequi.service;
 
 import com.prueba.nequi.dto.request.BranchRequest;
 import com.prueba.nequi.dto.response.BranchResponse;
+import com.prueba.nequi.entity.Branch;
 
 public interface BranchService {
 
@@ -9,5 +10,5 @@ public interface BranchService {
 
     BranchResponse update(Long id,BranchRequest branchRequest);
 
-    BranchResponse findById(Long id);
+    Branch findById(Long id);
 }

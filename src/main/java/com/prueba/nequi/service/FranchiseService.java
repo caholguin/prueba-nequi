@@ -2,6 +2,7 @@ package com.prueba.nequi.service;
 
 import com.prueba.nequi.dto.request.FranchiseRequest;
 import com.prueba.nequi.dto.response.FranchiseResponse;
+import com.prueba.nequi.entity.Franchise;
 
 public interface FranchiseService {
 
@@ -9,5 +10,5 @@ public interface FranchiseService {
 
     FranchiseResponse update(Long id, FranchiseRequest franchiseRequest);
 
-    FranchiseResponse findById(Long id);
+    Franchise findById(Long id);
 }

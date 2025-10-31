@@ -6,25 +6,8 @@ import com.prueba.nequi.dto.response.FranchiseResponse;
 import com.prueba.nequi.dto.response.ProductResponse;
 import com.prueba.nequi.entity.Branch;
 import com.prueba.nequi.entity.Franchise;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BranchMapper {
-
-    public static BranchResponse toDto(Branch branch, FranchiseResponse franchiseResponse) {
-
-        if (branch == null || franchiseResponse == null) return null;
-
-        BranchResponse branchResponse = new BranchResponse();
-        branchResponse.setId(branch.getId());
-        branchResponse.setName(branch.getName());
-        branchResponse.setFranchise(new BranchResponse.FranchiseResponse(
-                franchiseResponse.getId(),
-                franchiseResponse.getName()
-        ));
-
-        return branchResponse;
-    }
 
     public static BranchResponse toDto(Branch branch) {
 
@@ -38,27 +21,20 @@ public class BranchMapper {
         return branchResponse;
     }
 
-    public static Branch toEntity(BranchRequest branchRequest) {
+    public static Branch toEntity(BranchRequest branchRequest,Franchise franchise) {
 
-        if (branchRequest == null) return null;
+        if (branchRequest == null || franchise == null) return null;
 
         Branch branch = new Branch();
         branch.setName(branchRequest.getName());
-
-        Franchise franchise = new Franchise();
-        franchise.setId(branchRequest.getFranchiseId());
-
         branch.setFranchise(franchise);
         return branch;
     }
 
-    public static void updateEntity(Branch branch, BranchRequest branchRequest){
-        if(branch == null || branchRequest == null) return;
+    public static void updateEntity(Branch branch,Franchise franchise, BranchRequest branchRequest){
+        if(branch == null || branchRequest == null || franchise == null) return;
 
         branch.setName(branchRequest.getName());
-
-        Franchise franchise = new Franchise();
-        franchise.setId(branchRequest.getFranchiseId());
         branch.setFranchise(franchise);
     }
 
