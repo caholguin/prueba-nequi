@@ -9,6 +9,17 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    @Query("SELECT p FROM Product p WHERE p.branch.id IN (SELECT b.id FROM Branch b WHERE b.franchise.id = :franchiseId) AND p.stock = ( SELECT MAX(p2.stock) FROM Product p2 WHERE p2.branch.id = p.branch.id)")
+    @Query("""
+                SELECT p FROM Product p
+                INNER JOIN (
+                    SELECT p2.branch.id as branchId, MAX(p2.stock) as maxStock
+                    FROM Product p2
+                    INNER JOIN p2.branch b
+                    WHERE b.franchise.id = :franchiseId
+                    GROUP BY p2.branch.id
+                ) maxStocks ON p.branch.id = maxStocks.branchId AND p.stock = maxStocks.maxStock
+                WHERE p.branch.franchise.id = :franchiseId
+                ORDER BY p.branch.id
+            """)
     List<Product> findTopProductsByFranchiseId(@Param("franchiseId") Long franchiseId);
 }
