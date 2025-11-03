@@ -6,14 +6,14 @@ import java.io.Serializable;
 
 public class ProductStockRequest implements Serializable {
 
-    @NotNull(message = "El stock es obligatorio")
-    private int stock;
+    @NotNull(message = "El campo stock es obligatorio")
+    private Integer stock;
 
-    public int getStock(){
+    public Integer getStock(){
         return stock;
     }
 
-    public void setStock(int stock){
+    public void setStock(Integer stock){
         this.stock = stock;
     }
 }

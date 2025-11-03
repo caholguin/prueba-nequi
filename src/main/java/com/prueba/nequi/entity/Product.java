@@ -12,7 +12,7 @@ public class Product {
 
     private String name;
 
-    private int stock;
+    private Integer stock;
 
     @ManyToOne
     @JoinColumn(name = "branch_id")
@@ -34,11 +34,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getStock(){
+    public Integer getStock(){
         return stock;
     }
 
-    public void setStock(int stock){
+    public void setStock(Integer stock){
         this.stock = stock;
     }
 

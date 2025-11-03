@@ -31,6 +31,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse create(ProductRequest productRequest){
+
+        validateStock(productRequest.getStock());
+
         Branch branch = branchService.findById(productRequest.getBranchId());
         Product product = ProductMapper.toEntity(productRequest,branch);
         return ProductMapper.toDto(productRepository.save(product));
@@ -39,6 +42,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse update(Long id, ProductRequest productRequest){
+
+        validateStock(productRequest.getStock());
+
         Product product = this.findById(id);
         Branch branch = branchService.findById(productRequest.getBranchId());
         ProductMapper.updateEntity(product,productRequest,branch);
@@ -48,11 +54,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public ProductResponse updateStock(Long id, ProductStockRequest productStockRequest) {
-        Product product = this.findById(id);
 
-        if (productStockRequest.getStock() < 0){
-            throw new StockException("El stock no puede ser negativo");
-        }
+        validateStock(productStockRequest.getStock());
+
+        Product product = this.findById(id);
 
         product.setStock(productStockRequest.getStock());
 
@@ -68,11 +73,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> findByFranchiseId(Long franchiseId){
         List<Product> products = productRepository.findTopProductsByFranchiseId(franchiseId);
+
+        if (products.isEmpty()) {
+            throw new ObjectNotFoundException("No se encontraron productos para la franquicia con ID: " + franchiseId);
+        }
+
         return ProductMapper.toDtoList(products);
     }
 
     private Product findById(Long id){
         return productRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Producto con ID: " + id + " no encontrada"));
+    }
+
+    private static void validateStock(int productRequest){
+        if (productRequest < 0) {
+            throw new StockException("El stock no puede ser negativo");
+        }
     }
 }

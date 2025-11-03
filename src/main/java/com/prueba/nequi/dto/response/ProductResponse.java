@@ -1,15 +1,12 @@
 package com.prueba.nequi.dto.response;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
 import java.io.Serializable;
 
 public class ProductResponse implements Serializable {
 
     private Long id;
     private String name;
-    private int stock;
+    private Integer stock;
     private BranchResponse branch;
 
     public Long getId(){
@@ -28,11 +25,11 @@ public class ProductResponse implements Serializable {
         this.name = name;
     }
 
-    public int getStock(){
+    public Integer getStock(){
         return stock;
     }
 
-    public void setStock(int stock){
+    public void setStock(Integer stock){
         this.stock = stock;
     }
 
